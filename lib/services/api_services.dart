@@ -41,8 +41,64 @@ else {
       };
     }
 
-} 
-  
+}
+
+
+  Future<Map<String, dynamic>> getProducts() async {
+    final url=buildBaseUrl('/products');
+    try {
+      final response = await http.get(
+      url,
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return {
+          'success': true,
+          'data': data,
+        };
+      } else {
+        return {
+          'success': false,
+          'message': 'Failed to fetch products',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'Network error occurred',
+      };
+    }
+  }
+
+  Future<Map<String, dynamic>> getProduct(int id) async {
+        final url=buildBaseUrl('/products/$id');
+
+    try {
+      final response = await http.get(
+url
+,        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'data': json.decode(response.body),
+        };
+      } else {
+        return {
+          'success': false,
+          'message': 'Failed to fetch product details',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'Network error occurred',
+      };
+    }
+  }
 
 
 

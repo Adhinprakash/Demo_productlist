@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       getPages: [
           GetPage(name: '/login', page: () => LoginView(),binding: AuthBinding()),
       // Create HomePage
-      GetPage(name: '/productlist', page: ()=>ProductlistView()),
+      GetPage(name: '/productlist', page: ()=>ProductListPage()),
             GetPage(name: '/productview', page: ()=>ProductView())
 
       ],
