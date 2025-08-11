@@ -14,7 +14,14 @@ RxBool get isloading =>_isloading;
   final RxBool obscurePassword = true.obs;
 
   final RxString errorMessage = ''.obs;
+final RxBool _isloggedin=false.obs;
+RxBool get isloggedin =>isloggedin;
 
+@override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
   @override
   void onClose() {
     // TODO: implement onClose
@@ -22,6 +29,9 @@ RxBool get isloading =>_isloading;
     passwordcontroller.close();
     super.onClose();
   }
+
+
+//  
 void togglePasswordVisibility() {
     obscurePassword.toggle();
   }
@@ -36,6 +46,9 @@ Future<void>login()async{
 try {
   final result=await apiServices.login(username: usernamecontroller.value.text, password: passwordcontroller.value.text);
   if (result['success']) {
+
+ 
+
     Get.snackbar( 'Success',
           'Login successful!',
           snackPosition: SnackPosition.BOTTOM,

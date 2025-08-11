@@ -222,7 +222,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
 
-                      // Description Section
                       const Text(
                         'Description',
                         style: TextStyle(
@@ -242,7 +241,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
 
-                      // Quantity Selector
                       Row(
                         children: [
                           const Text(
@@ -263,7 +261,6 @@ class ProductDetailScreen extends StatelessWidget {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    // Decrease quantity
                                   },
                                   icon: const Icon(Icons.remove),
                                   color: Colors.grey[600],
@@ -283,10 +280,9 @@ class ProductDetailScreen extends StatelessWidget {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    // Increase quantity
                                   },
                                   icon: const Icon(Icons.add),
-                                  color: Colors.deepPurple,
+                                  color:kprimary,
                                 ),
                               ],
                             ),
@@ -351,9 +347,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                
-                // Buy Now Button
-                Expanded(
+                                Expanded(
                   child: OutlinedButton(
                     onPressed: () {
                       Get.snackbar(
