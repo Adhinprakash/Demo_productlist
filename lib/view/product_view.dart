@@ -1,9 +1,7 @@
 import 'package:demoapp/controller/productDetails_controller.dart';
 import 'package:demoapp/utils/constant.dart';
 import 'package:demoapp/view/widgets/favorites_widget.dart';
-import 'package:demoapp/view/widgets/loadingwidget.dart';
 import 'package:demoapp/view/widgets/lodingProductWidget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:demoapp/model/product_model.dart';
@@ -187,7 +185,7 @@ class ProductDetailScreen extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
+                              color: kprimary,
                             ),
                           ),
                           const Spacer(),
@@ -342,7 +340,7 @@ class ProductDetailScreen extends StatelessWidget {
                     icon: const Icon(Icons.shopping_cart_outlined),
                     label: const Text('Add to Cart'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: kprimary,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -370,8 +368,8 @@ class ProductDetailScreen extends StatelessWidget {
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.deepPurple,
-                      side: const BorderSide(color: Colors.deepPurple, width: 2),
+                      foregroundColor: kprimary,
+                      side: const BorderSide(color:kprimary, width: 2),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
