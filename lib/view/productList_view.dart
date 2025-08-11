@@ -1,3 +1,7 @@
+import 'package:demoapp/utils/constant.dart';
+import 'package:demoapp/view/widgets/emptystate_widget.dart';
+import 'package:demoapp/view/widgets/loadingwidget.dart';
+import 'package:demoapp/view/widgets/productcard_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
@@ -21,17 +25,17 @@ class ProductListPage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor:kprimary,
         elevation: 0,
         centerTitle: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value && controller.products.isEmpty) {
-          return const _LoadingWidget();
+          return const LoadingWidget();
         }
 
         if (controller.products.isEmpty && !controller.isLoading.value) {
-          return _EmptyStateWidget(
+          return EmptyStateWidget(
             onRetry: () => controller.fetchProducts(),
             errorMessage: controller.errorMessage.value,
           );
@@ -39,7 +43,7 @@ class ProductListPage extends StatelessWidget {
 
         return RefreshIndicator(
           onRefresh: controller.refreshProducts,
-          color: Colors.deepPurple,
+          color: kprimary,
           backgroundColor: Colors.white,
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
@@ -59,20 +63,20 @@ class ProductListPage extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.error_outline, color: Colors.red[600]),
+                        Icon(Icons.error_outline, color:kred),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             controller.errorMessage.value,
                             style: TextStyle(
-                              color: Colors.red[700],
+                              color:kred,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
                         IconButton(
                           onPressed: () => controller.errorMessage.value = '',
-                          icon: Icon(Icons.close, color: Colors.red[600]),
+                          icon: Icon(Icons.close, color: kred),
                           constraints: const BoxConstraints(),
                           padding: EdgeInsets.zero,
                         ),

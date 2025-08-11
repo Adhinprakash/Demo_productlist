@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class _EmptyStateWidget extends StatelessWidget {
+class EmptyStateWidget extends StatelessWidget {
   final VoidCallback onRetry;
   final String errorMessage;
 
-  const _EmptyStateWidget({
+  const EmptyStateWidget({
     required this.onRetry,
     required this.errorMessage,
   });
