@@ -1,5 +1,8 @@
 import 'package:demoapp/controller/productDetails_controller.dart';
 import 'package:demoapp/utils/constant.dart';
+import 'package:demoapp/view/widgets/favorites_widget.dart';
+import 'package:demoapp/view/widgets/loadingwidget.dart';
+import 'package:demoapp/view/widgets/lodingProductWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +19,7 @@ class ProductDetailScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Obx(() {
         if (controller.product.value == null) {
-          return const _LoadingScreen();
+          return const LoadingScreen();
         }
 
         final ProductModel product = controller.product.value!;
@@ -47,36 +50,7 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
               actions: [
-                Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    icon: const Icon(Icons.favorite_border, color: Colors.black87),
-                    onPressed: () {
-                      // Add to favorites functionality
-                      Get.snackbar(
-                        'Added to Favorites',
-                        product.title,
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.deepPurple,
-                        colorText: Colors.white,
-                        margin: const EdgeInsets.all(16),
-                        borderRadius: 12,
-                        duration: const Duration(seconds: 2),
-                      );
-                    },
-                  ),
-                ),
+                FavoritesWidget(product: product)
               ],
               flexibleSpace: FlexibleSpaceBar(
                 background: Hero(
@@ -127,7 +101,6 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
 
-            // Product Details Content
             SliverToBoxAdapter(
               child: Container(
                 decoration: const BoxDecoration(
@@ -139,20 +112,19 @@ class ProductDetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Category Badge
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.deepPurple.withOpacity(0.1),
+                          color:kprimary,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           product.category.toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.deepPurple[700],
+                          style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 0.5,
@@ -161,7 +133,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // Product Title
                       Text(
                         product.title,
                         style: const TextStyle(
@@ -173,7 +144,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
 
-                      // Rating and Reviews
                       Row(
                         children: [
                           Row(
@@ -210,7 +180,6 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
 
-                      // Price
                       Row(
                         children: [
                           Text(
@@ -423,41 +392,3 @@ class ProductDetailScreen extends StatelessWidget {
   }
 }
 
-class _LoadingScreen extends StatelessWidget {
-  const _LoadingScreen();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
-          onPressed: () => Get.back(),
-        ),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(
-              color: Colors.deepPurple,
-              strokeWidth: 3,
-            ),
-            SizedBox(height: 24),
-            Text(
-              'Loading product details...',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
