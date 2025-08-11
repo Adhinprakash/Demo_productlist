@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
+  flutter_secure_storage:
   flutter_svg: null
   get: ^4.7.2
   http: ^1.5.0

@@ -1,5 +1,6 @@
 import 'package:demoapp/services/api_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController{
@@ -16,11 +17,13 @@ RxBool get isloading =>_isloading;
   final RxString errorMessage = ''.obs;
 final RxBool _isloggedin=false.obs;
 RxBool get isloggedin =>isloggedin;
+  final storage = const FlutterSecureStorage();
 
 @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    checkLoginstatus();
   }
   @override
   void onClose() {
@@ -31,7 +34,14 @@ RxBool get isloggedin =>isloggedin;
   }
 
 
-//  
+  Future<void>checkLoginstatus()async{
+String? storevalue=await storage.read(key: "isLoggedIn");
+   _isloggedin.value= storevalue=="true";
+   if(_isloggedin.value){
+    Get.offAllNamed("/productlist");
+   }
+
+  }
 void togglePasswordVisibility() {
     obscurePassword.toggle();
   }
@@ -47,7 +57,8 @@ try {
   final result=await apiServices.login(username: usernamecontroller.value.text, password: passwordcontroller.value.text);
   if (result['success']) {
 
- 
+  await storage.write(key: 'isLoggedIn', value: 'true');
+        _isloggedin.value = true;
 
     Get.snackbar( 'Success',
           'Login successful!',
