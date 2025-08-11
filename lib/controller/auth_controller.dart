@@ -14,6 +14,14 @@ RxBool get isloading =>_isloading;
   final RxBool obscurePassword = true.obs;
 
   final RxString errorMessage = ''.obs;
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    usernamecontroller.close();
+    passwordcontroller.close();
+    super.onClose();
+  }
 void togglePasswordVisibility() {
     obscurePassword.toggle();
   }

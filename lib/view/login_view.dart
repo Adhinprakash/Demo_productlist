@@ -1,3 +1,4 @@
+import 'package:demoapp/components/primary_button.dart';
 import 'package:demoapp/controller/auth_controller.dart';
 import 'package:demoapp/utils/constant.dart';
 import 'package:demoapp/view/widgets/textfield_widget.dart';
@@ -5,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class LoginView extends GetView<AuthController> {
+class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
+      final AuthController controller = Get.put(AuthController());
+
     return  Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -46,40 +49,122 @@ class LoginView extends GetView<AuthController> {
                         const SizedBox(height: 16),
                     Column(
                       children: [
-                           InputTextField(
-                          controller: controller.usernamecontroller.value,
-                          hintText: "Enter your username",
-                          labelText: "username",
-                          svgIcon: mailIcon,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your username';
-                            }
-                            return null;
-                          },
+                        //    InputTextField(
+                        //   controller: controller.usernamecontroller.value,
+                        //   hintText: "Enter your username",
+                        //   labelText: "Username",
+                        //   svgIcon: mailIcon,
+                        //   validator: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       return 'Please enter your username';
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
+                         TextField(
+                        controller: controller.usernamecontroller.value,
+                        decoration: InputDecoration(
+                          labelText: 'Username',
+                          prefixIcon: const Icon(Icons.person_outline),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
                         ),
-                          Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 24),
-                          child: InputTextField(
-                            controller: controller.passwordcontroller.value,
-                            hintText: "Enter your password",
-                            labelText: "Password",
-                            svgIcon: lockIcon,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
+                      ),
+                      const SizedBox(height: 30),
+                     Obx(
+                        () => TextFormField(
+                          controller: controller.passwordcontroller.value,
+                          obscureText: controller.obscurePassword.value,
+                          
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            
+                            prefixIcon: const Icon(Icons.lock_outline),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                controller.obscurePassword.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: controller.togglePasswordVisibility,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[50],
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        const SizedBox(height: 8),
-                        
-                      
+                      ),
+                      const SizedBox(height: 8),
+                        Obx(
+                        () => controller.errorMessage.value.isNotEmpty
+                            ? Container(
+                                margin: const EdgeInsets.only(top: 8),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.red[50],
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.red[200]!),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.error_outline, 
+                                        color: Colors.red[600], size: 20),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        controller.errorMessage.value,
+                                        style: TextStyle(
+                                          color: Colors.red[600],
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                      const SizedBox(height: 24),
+
+                     Obx(
+                        () => SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: controller.isloading.value
+                                ? null
+                                : controller.login,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue[600],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              elevation: 2,
+                            ),
+                            child: controller.isloading.value
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
+                                    ),
+                                  )
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          ),))
                         // Obx(() {
                         //   return ElevatedButton(
                         //     onPressed: () async {

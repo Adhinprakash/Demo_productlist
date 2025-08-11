@@ -1,3 +1,5 @@
+import 'package:demoapp/services/auth_binding.dart';
+import 'package:demoapp/services/initial_binding.dart';
 import 'package:demoapp/view/login_view.dart';
 import 'package:demoapp/view/productList_view.dart';
 import 'package:demoapp/view/product_view.dart';
@@ -16,9 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: 'login',
+      initialBinding: InitialBinding(),
       getPages: [
-          GetPage(name: '/login', page: () => LoginView()),
+          GetPage(name: '/login', page: () => LoginView(),binding: AuthBinding()),
       // Create HomePage
       GetPage(name: '/productlist', page: ()=>ProductlistView()),
             GetPage(name: '/productview', page: ()=>ProductView())

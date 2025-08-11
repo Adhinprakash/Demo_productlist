@@ -1,4 +1,4 @@
-  final String baseurl=" https://fakestoreapi.com";
+  final String baseurl="https://fakestoreapi.com";
 
 
 Uri buildBaseUrl(String endPoint) {
